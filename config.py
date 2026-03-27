@@ -22,8 +22,8 @@ RESULTS_DIR = os.path.join(BASE_DIR, "results")
 os.makedirs(MODELS_DIR, exist_ok=True)
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
-MODEL_LIST = ["resnet18", "efficientnet_b0", "densenet121"]
-MODEL_NAME = "resnet18"  # can be changed to efficientnet_b0 or densenet121
+MODEL_LIST = ["resnet50"]
+MODEL_NAME = "resnet50"  # can be changed to efficientnet_b0 or densenet121
 
 BEST_MODEL_PATH = os.path.join(MODELS_DIR, f"{MODEL_NAME}_best.pth")
 
@@ -39,7 +39,7 @@ NUM_CLASSES = len(CLASS_NAMES)
 IMAGE_SIZE = 224          # ResNet expected input size
 BATCH_SIZE = 16           # Smaller batch for CPU training
 NUM_EPOCHS = 20           # Max epochs (early stopping may kick in sooner)
-LEARNING_RATE = 0.001
+LEARNING_RATE = 1e-5      # Reduced learning rate for fine-tuning
 WEIGHT_DECAY = 1e-4       # L2 regularization
 SEED = 42
 

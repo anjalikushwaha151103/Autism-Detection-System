@@ -46,8 +46,8 @@ def mode_train():
     # Load data
     train_loader, val_loader, test_loader, class_to_idx = get_data_loaders()
 
-    # Create model
-    model = get_model(config.MODEL_NAME, config.NUM_CLASSES, freeze=True)
+    # Create model (using freeze=False for fine-tuning phase)
+    model = get_model(config.MODEL_NAME, config.NUM_CLASSES, freeze=False)
     get_model_summary(model)
 
     # Train
@@ -99,8 +99,8 @@ def mode_compare():
         config.MODEL_NAME = model_name
         config.BEST_MODEL_PATH = os.path.join(config.MODELS_DIR, f"{model_name}_best.pth")
 
-        # Create fresh model
-        model = get_model(model_name, config.NUM_CLASSES, freeze=True)
+        # Create fresh model (using freeze=False for fine-tuning phase)
+        model = get_model(model_name, config.NUM_CLASSES, freeze=False)
         get_model_summary(model)
 
         # Train and Evaluate
@@ -155,6 +155,17 @@ def mode_compare():
     print(" - ResNet18 was used as a baseline model.")
     print(" - EfficientNet-B0 performed better due to compound scaling.")
     print(" - DenseNet121 showed improved recall due to feature reuse.")
+    
+    # Analyze ResNet50 vs ResNet18
+    r18_acc = results_dict.get("resnet18", {}).get("accuracy", 0)
+    r50_acc = results_dict.get("resnet50", {}).get("accuracy", 0)
+    
+    if r50_acc > r18_acc:
+        print(" - ResNet50 outperformed ResNet18.")
+        print("   Conclusion: Deeper architecture improved feature extraction and performance.")
+    else:
+        print(" - ResNet50 did not outperform ResNet18.")
+        print("   Conclusion: Due to limited dataset size, deeper models did not generalize better.")
     print("-" * 60 + "\n")
 
 

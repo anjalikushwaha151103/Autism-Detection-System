@@ -22,5 +22,13 @@
         "f1": 0.798974358974359,
         "sensitivity": 0.7285714285714285,
         "specificity": 0.8714285714285714
+    },
+    "resnet50": {
+        "accuracy": 0.9429,
+        "precision": 0.9461,
+        "recall": 0.9429,
+        "f1": 0.9428,
+        "sensitivity": 0.9,
+        "specificity": 0.9857
     }
 }
